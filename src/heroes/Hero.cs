@@ -48,8 +48,8 @@ namespace Heroes {
             // Rebuild the list of heroes
             Heroes.Core.HeroManager.RebuildList = true;
 
-            // If there are no more heroes, kill the game
-            if (Heroes.Core.HeroManager.heroes.Count == 0) Heroes.Core.GameLoop.Kill("No more heroes!");
+            // If there are no more heroes, kill the game loop
+            if (Heroes.Core.HeroManager.heroes.Count == 0) App.End();
         }
     }
 }

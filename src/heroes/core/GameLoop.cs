@@ -4,12 +4,7 @@ namespace Heroes.Core
 {
     public class GameLoop
     {
-        private static bool GameRunning = true;
-        public static void Kill(string error = "")
-        {
-            GameRunning = false;
-            if (error != "") Logging.Logger.Log(error);
-        }
+        public static bool running = true;
 
 
         // Game loop methods
@@ -22,17 +17,22 @@ namespace Heroes.Core
             List<Hero> heroes = new(HeroManager.heroes);
 
             // Update the game loop
-            while (GameRunning)
+            while (running)
             {
                 // Invoke the update method for each hero
                 foreach (Hero hero in heroes)
                 {
                     hero.OnUpdate(); // Update the hero
-                    if (!GameRunning) break; // Quit
-                                             // Rebuild the list of heroes
+
+                    if (!running) break; // Quit
+                    
+                    // Rebuild the list of heroes
                     if (HeroManager.RebuildList)
                     {
+                        // Rebuild the copied list of heroes
                         heroes = new(HeroManager.heroes);
+
+                        // Reset the rebuild list
                         HeroManager.RebuildList = false;
                     }
                 }
