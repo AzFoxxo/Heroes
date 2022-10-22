@@ -8,8 +8,8 @@ namespace GameCode.Loader {
     public class HeroesFSLoader {
         public static void Load() {
 
-            // Create a hero
-            HeroManager.CreateHero<HeroTest>();
+            // Create a new hero (this method should only be used by the loader script to create the heroes, use Hero.Create<T>() in game code)
+            HeroManager.CreateHeroLoader<HeroTest>();
         }
     }
 }

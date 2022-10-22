@@ -3,10 +3,13 @@ using Heroes;
 namespace GameCode {
     // A test hero
     public class HeroTest : Hero {
-        ulong i = 0;
+        ulong i = 0; // A counter
+
+        Hero hero2; // A second hero
 
         public override void OnStart() {
-            Console.WriteLine("Hello, world!");
+            Print("Welcome to the test hero!");
+            hero2 = Create<HeroTest2>();
         }
 
         // Update method
@@ -15,10 +18,14 @@ namespace GameCode {
             i++;
             Console.WriteLine(i);
 
-            if (i >= 10000) {
+            if (i >= 100) {
                 // Destroy the hero
-                Heroes.Core.HeroManager.DestroyHero(this);
-                // Heroes.Core.GameLoop.Kill();
+                if (hero2 != null) Destroy(hero2);
+                
+            }
+
+            if (i >= 105) {
+                App.End();
             }
         }
     }
