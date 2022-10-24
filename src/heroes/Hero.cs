@@ -2,7 +2,7 @@ namespace Heroes {
     // Hero object class (base class)
     public class Hero : Common { // Inherits from Common so print method is available, etc.
         // Properties
-        
+        private bool persistent = false; // Whether the hero is persistent (should not be destroyed when the world is destroyed)
 
         // Hero object constructor
         public Hero() {
@@ -51,5 +51,17 @@ namespace Heroes {
             // If there are no more heroes, kill the game loop
             if (Heroes.Core.HeroManager.heroes.Count == 0) App.End();
         }
+
+        ///<summary>Set the hero to persistent</summary>
+        ///<param name="hero">The hero to set to persistent</param>
+        ///<param name="persistent">Whether the hero should be persistent</param>
+        public static void MakePersistent(Hero hero, bool persistent) => hero.persistent = true;
+        
+
+        ///<summary>Get the persistence of the hero.</summary>
+        ///<param name="hero">The class which derives from hero to get the persistence of</param>
+        ///<returns>Whether the hero is persistent</returns>
+        public static bool IsPersistent(Hero hero) => hero.persistent;
+        
     }
 }

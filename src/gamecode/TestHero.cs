@@ -27,8 +27,26 @@ namespace GameCode {
             if (i >= 105) {
                 var text = Read("Enter some text: ");
                 PrintPrompt("You entered: " + text + "\n");
-                App.End();
+                // App.End();
+                
+                // Check if the hero is persistent
+                CheckPersistence();
+
+                // Make the hero persistent (disable this and the game will immediately end due to the hero being destroyed)
+                // MakePersistent(this, true);
+
+                // Check if the hero is persistent
+                CheckPersistence();
+                
+                Heroes.Core.HeroManager.WorldDestroyAllHeroes();
             }
+        }
+
+        // Check persistence
+        private void CheckPersistence() {
+            // Check if the hero is persistent
+            if (IsPersistent(this)) Print("The hero is persistent.");
+            else Print("The hero is not persistent.");
         }
     }
 }
