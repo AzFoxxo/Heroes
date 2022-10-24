@@ -25,6 +25,8 @@ namespace GameCode {
             }
 
             if (i >= 105) {
+                var text = Read("Enter some text: ");
+                PrintPrompt("You entered: " + text + "\n");
                 App.End();
             }
         }
