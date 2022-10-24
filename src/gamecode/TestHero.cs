@@ -5,7 +5,7 @@ namespace GameCode {
     public class HeroTest : Hero {
         ulong i = 0; // A counter
 
-        Hero hero2; // A second hero
+        Hero? hero2; // A second hero
 
         public override void OnStart() {
             Print("Welcome to the test hero!");
@@ -20,7 +20,7 @@ namespace GameCode {
 
             if (i >= 100) {
                 // Destroy the hero
-                if (hero2 != null) Destroy(hero2);
+                Destroy(hero2);
                 
             }
 

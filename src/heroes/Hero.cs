@@ -38,7 +38,10 @@ namespace Heroes {
         }
         ///<summary>Destroy a hero</summary>
         ///<param name="hero">The hero to destroy</param>
-        public static void Destroy(Hero hero) {
+        public static void Destroy(Hero? hero) {
+            // Make sure the hero is not null in order to prevent errors when destroying a hero which has already been destroyed
+            if (hero == null) return;
+
             // Run de-initialisation methods
             hero.OnDestroy();
 
