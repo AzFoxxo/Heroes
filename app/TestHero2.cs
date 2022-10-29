@@ -1,4 +1,4 @@
-namespace GameCode;
+namespace App;
 using Heroes;
 
 // A test hero

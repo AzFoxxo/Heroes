@@ -1,4 +1,4 @@
-namespace GameCode;
+namespace App;
 using Heroes;
 
 // A test hero
@@ -48,7 +48,7 @@ public class HeroTest : Hero
             // Restart the game
             if (text == "restart")
             {
-                App.Restart();
+                Application.Restart();
             }
         }
     }
