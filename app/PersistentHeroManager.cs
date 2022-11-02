@@ -23,8 +23,7 @@ public class PersistentHeroManager : Hero
     #region App persistent hero manager start (OnStart) - Create heroes present at start here
     public override void OnStart()
     {
-        // Create the persistent hero
-        Create<HeroTest>();
+        // Create heroes here
     }
     #endregion
 }
