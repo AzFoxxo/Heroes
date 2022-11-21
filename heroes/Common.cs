@@ -1,6 +1,8 @@
+using Heroes.ECS;
+
 namespace Heroes;
 
-public class Common
+public class Common : ComponentSystem
 {
     ///<summary>Print a message to the console.</summary>
     ///<param name="message">The message to print.</param>
