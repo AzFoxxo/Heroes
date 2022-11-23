@@ -15,7 +15,7 @@ public class Time
 
 
     /// <summary> Calculate the delta time </summary>
-    protected static void CalculateDeltaTime()
+    internal static void CalculateDeltaTime()
     {
         var currentTime = GetTime();
         _deltaTime = ((currentTime - _lastTime) / 1000.0) * _timeScale;
@@ -26,7 +26,7 @@ public class Time
     /// <returns> Delta time (double) </returns>
     public static double GetDeltaTime()
     {
-        CalculateDeltaTime();
+        CalculateDeltaTime(); // Recalculate the delta time every call (in addition to each frame)
         return _deltaTime;
     }
 

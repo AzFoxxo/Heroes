@@ -18,6 +18,9 @@ public class GameLoop
         // Update the game loop
         while (running)
         {
+            // Calculate the delta time
+            Time.CalculateDeltaTime();
+
             // Invoke the update method for each hero
             foreach (Hero hero in heroes)
             {
