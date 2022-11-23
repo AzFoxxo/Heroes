@@ -26,7 +26,6 @@ public class Time
     /// <returns> Delta time (double) </returns>
     public static double GetDeltaTime()
     {
-        CalculateDeltaTime(); // Recalculate the delta time every call (in addition to each frame)
         return _deltaTime;
     }
 
