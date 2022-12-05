@@ -19,7 +19,9 @@ public class Hero : Common
     // Events
     public virtual void OnEarlyStart() { }
     public virtual void OnStart() { }
+    public virtual void OnEarlyUpdate() { }
     public virtual void OnUpdate() { }
+    public virtual void OnLateUpdate() { }
     public virtual void OnDestroy() { }
 
     // Methods
@@ -55,9 +57,6 @@ public class Hero : Common
 
         // Rebuild the list of heroes
         Heroes.Internal.HeroManager.MarkHeroesForRebuild();
-
-        // If there are no more heroes, kill the game loop
-        if (Heroes.Internal.HeroManager.heroes.Count == 0) Application.Quit();
     }
 
     ///<summary>Set the hero to persistent</summary>

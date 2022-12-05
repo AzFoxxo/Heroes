@@ -21,10 +21,56 @@ public class GameLoop
             // Calculate the delta time
             Time.CalculateDeltaTime();
 
-            // Invoke the update method for each hero
+            // If the only hero is the persistent hero manager, then destroy it and exit the game loop
+            if (heroes.Count == 1 && heroes[0].GetType() == typeof(App.PersistentHeroManager))
+            {
+                Hero.Destroy(heroes[0]);
+                Console.WriteLine("Hero manager destroyed - exiting game loop");
+                break;
+            }
+            
+            // Run early update methods
             foreach (Hero hero in heroes)
             {
+                hero.OnEarlyUpdate();
+
                 hero.OnUpdate(); // Update the hero
+
+                if (!running) break; // Quit
+
+                // Rebuild the list of heroes
+                if (HeroManager.RebuildList)
+                {
+                    // Rebuild the copied list of heroes
+                    heroes = new(HeroManager.heroes);
+
+                    // Reset the rebuild list
+                    HeroManager.RebuildList = false;
+                }
+            }
+
+            // Run update methods
+            foreach (Hero hero in heroes)
+            {
+                hero.OnUpdate();
+
+                if (!running) break; // Quit
+
+                // Rebuild the list of heroes
+                if (HeroManager.RebuildList)
+                {
+                    // Rebuild the copied list of heroes
+                    heroes = new(HeroManager.heroes);
+
+                    // Reset the rebuild list
+                    HeroManager.RebuildList = false;
+                }
+            }
+
+            // Run late update methods
+            foreach (Hero hero in heroes)
+            {
+                hero.OnLateUpdate();
 
                 if (!running) break; // Quit
 
@@ -46,7 +92,7 @@ public class GameLoop
             hero.OnDestroy();
         }
     }
-    // Restart the game loop
+    ///<summary>Restart the game loop</summary>
     public void Restart()
     {
         // Reset the game loop
