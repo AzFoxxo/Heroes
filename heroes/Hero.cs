@@ -1,7 +1,7 @@
 namespace Heroes;
 
 // Hero object class (base class)
-public class Hero : Common
+public class Hero : Attachables.HeroAttachableSystem
 { // Inherits from Common so print method is available, etc.
   // Properties
     private bool persistent = false; // Whether the hero is persistent (should not be destroyed when the world is destroyed)

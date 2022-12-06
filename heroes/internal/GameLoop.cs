@@ -5,7 +5,6 @@ public class GameLoop
 {
     public static bool running = true;
 
-
     // Game loop methods
     public void Enter()
     {
@@ -53,6 +52,16 @@ public class GameLoop
             foreach (Hero hero in heroes)
             {
                 hero.OnUpdate();
+
+                // Update all the attachables
+                var attachables = hero.GetAttachables(); // Get the list of attachables
+                if (attachables != null) // Check if the list is not null, if not, loop through running the update method
+                {
+                    foreach (var attachable in attachables)
+                    {
+                        attachable.Update();
+                    }
+                }
 
                 if (!running) break; // Quit
 
