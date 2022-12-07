@@ -1,6 +1,8 @@
 namespace Heroes.Attachables;
 
 public class HeroAttachableSystem : Common {
+
+    public Hero? Parent;
     private Attachable[]? components;
 
     ///<summary>Get all components on the hero</summary>
@@ -54,8 +56,9 @@ public class HeroAttachableSystem : Common {
     ///<summary>Register a component.</summary>
     ///<param name="component">The component to register.</param>
     public T Attach<T>() where T : Attachable, new() {
-        // Create a new component
+        // Create a new component of type T and provide the parent
         T component = new T();
+        component.Parent = Parent;
 
         // Check if components is null
         if (components == null) {
@@ -82,6 +85,44 @@ public class HeroAttachableSystem : Common {
         return component;
     }
 
+    ///<summary>Delete a component.</summary>
+    ///<param name="component">The component to delete.</param>
+    public void DeleteAttachable(Attachable component) {
+        // Check if the components are null
+        if (components == null) return;
+
+        // Run the delete method
+        component.Destroy();
+
+        // Create a copy of the components
+        Attachable[] copy = new Attachable[components.Length];
+
+        // Create a list of components
+        List<Attachable> list = new List<Attachable>();
+
+        // Loop through the components
+        bool deleted = false;
+        foreach (var c in components) {
+            // Check if the component is null
+            if (c == null) continue;
+
+            // Check if the component is the component
+            if (!deleted && c == component) {
+                // Set deleted to true
+                deleted = true;
+
+                // Continue
+                continue;
+            }
+
+            // Add the component to the list
+            list.Add(c);
+        }
+        
+        // Set components to the copy
+        components = list.ToArray();
+    }
+
     ///<summary>Delete a component of type T.</summary>
     ///<param name="type">The type of component to delete.</param>
     public void DeleteAttachable<T>() where T : Attachable {
@@ -105,6 +146,9 @@ public class HeroAttachableSystem : Common {
                 // Set deleted to true
                 deleted = true;
 
+                // Run the delete method
+                component.Destroy();
+
                 // Continue
                 continue;
             }
@@ -119,6 +163,18 @@ public class HeroAttachableSystem : Common {
 
     ///<summary>Delete all components.</summary>
     public void DeleteAllAttachable() {
+        // Check if the components are null
+        if (components == null) return;
+
+        // Loop through the components
+        foreach (var component in components) {
+            // Check if the component is null
+            if (component == null) continue;
+
+            // Run the delete method
+            component.Destroy();
+        }
+
         // Set components to null
         components = null;
     }

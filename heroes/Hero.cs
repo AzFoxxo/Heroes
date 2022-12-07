@@ -14,6 +14,9 @@ public class Hero : Attachables.HeroAttachableSystem
 
         // Hero start method
         OnStart();
+
+        // Set the parent to the hero
+        Parent = this;
     }
 
     // Events

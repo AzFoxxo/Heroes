@@ -2,8 +2,8 @@ namespace Heroes.Attachables;
 
 public class Attachable : Common {
 
-    // Parent hero
-    public Hero? ParentHero { get; private set; }
+    // Parent
+    internal Hero? Parent;
 
     // Constructor
     public Attachable() {
