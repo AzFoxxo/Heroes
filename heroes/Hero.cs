@@ -45,6 +45,28 @@ public class Hero : Attachables.HeroAttachableSystem
         // Return the hero
         return hero;
     }
+
+    ///<summary>Create a hero</summary>
+    ///<param name="hero">The hero to create (object reference)</param>
+    ///<returns>The created hero</returns>
+    protected static Hero Create(Type hero)
+    {
+        // Make sure the type is derived from Hero
+        if (!hero.IsSubclassOf(typeof(Hero))) throw new Exception("Type is not derived from Hero");
+
+        // Create a new hero
+        Hero newHero = (Hero)Activator.CreateInstance(hero)!;
+
+        // Add the hero to the list of heroes
+        Heroes.Internal.HeroManager.heroes.Add(newHero);
+
+        // Rebuild the list of heroes
+        Heroes.Internal.HeroManager.MarkHeroesForRebuild();
+
+        // Return the hero
+        return newHero;
+    }
+
     ///<summary>Destroy a hero</summary>
     ///<param name="hero">The hero to destroy</param>
     public static void Destroy(Hero? hero)

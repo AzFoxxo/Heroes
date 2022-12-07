@@ -1,5 +1,4 @@
 namespace Heroes.Internal;
-using App.Internal;
 
 public class GameLoop
 {
@@ -9,7 +8,8 @@ public class GameLoop
     public void Enter()
     {
         // Loader code
-        FSLoader.Load();
+        HeroManager.WorldLoadHero<EngineHeroInitialisation>();
+        
 
         // Create a copy of the list of heroes
         List<Hero> heroes = new(HeroManager.heroes);
@@ -21,7 +21,7 @@ public class GameLoop
             Time.CalculateDeltaTime();
 
             // If the only hero is the persistent hero manager, then destroy it and exit the game loop
-            if (heroes.Count == 1 && heroes[0].GetType() == typeof(App.PersistentHeroManager))
+            if (heroes.Count == 1 && heroes[0].GetType() == typeof(EngineHeroInitialisation))
             {
                 Hero.Destroy(heroes[0]);
                 Console.WriteLine("Hero manager destroyed - exiting game loop");

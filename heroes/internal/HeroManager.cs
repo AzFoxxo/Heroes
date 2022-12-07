@@ -31,5 +31,4 @@ public struct HeroManager
         foreach (Hero hero in heroCopy)
             if (!Hero.IsPersistent(hero)) Hero.Destroy(hero);
     }
-
 }
