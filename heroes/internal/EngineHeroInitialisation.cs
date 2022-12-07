@@ -28,9 +28,6 @@ internal class EngineHeroInitialisation : Hero
             // Create the hero
             Create(type);
         }
-
-        // Print the number of classes which inherit from Hero currently initialised
-        Print("Number of heroes: " + heroes.Count);
     }
 
     internal static void AddHero(Hero hero)
