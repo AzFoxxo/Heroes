@@ -4,7 +4,6 @@ using System.Reflection;
 using Heroes;
 
 // The persistent hero manager
-// Any global variables can be stored here
 internal class EngineHeroInitialisation : Hero
 {
     internal static EngineHeroInitialisation? Instance;
