@@ -1,22 +1,24 @@
-namespace Heroes.ECS;
+namespace Heroes.Attachables;
 
-public class ComponentSystem {
-    private Hero[]? components;
+public class HeroAttachableSystem : Common {
 
-    ///<summary>Get all components on the hero/summary>
-    public Hero[]? GetComponents() {
+    public Hero? Parent;
+    private Attachable[]? components;
+
+    ///<summary>Get all components on the hero</summary>
+    public Attachable[]? GetAttachables() {
         return components;
     }
 
     ///<summary>Get the first component by type.</summary>
     ///<param name="type">The type of the component.</param>
-    ///<returns>The component (T of Hero).</returns>
-    public T? GetComponent<T>() where T : Hero {
+    ///<returns>The component (T of Attachable).</returns>
+    public T? GetAttachable<T>() where T : Attachable {
         // Check if the components are null
         if (components == null) return null;
 
         // Loop through the components
-        foreach (Hero component in components) {
+        foreach (var component in components) {
             // Check if the component is null
             if (component == null) continue;
 
@@ -30,8 +32,8 @@ public class ComponentSystem {
 
     ///<summary>Get an array components by type.</summary>
     ///<param name="type">The type of component to get.</param>
-    ///<returns>An array of components (T of Hero).</returns>
-    public T[]? GetComponents<T>() where T : Hero {
+    ///<returns>An array of components (T of Attachable).</returns>
+    public T[]? GetAttachables<T>() where T : Attachable {
         // Check if the components are null
         if (components == null) return null;
 
@@ -53,17 +55,18 @@ public class ComponentSystem {
 
     ///<summary>Register a component.</summary>
     ///<param name="component">The component to register.</param>
-    public T RegisterComponent<T>() where T : Hero, new() {
-        // Create a new component
+    public T Attach<T>() where T : Attachable, new() {
+        // Create a new component of type T and provide the parent
         T component = new T();
+        component.Parent = Parent;
 
         // Check if components is null
         if (components == null) {
             // Set components to a new array
-            components = new Hero[] { component };
+            components = new Attachable[] { component };
         } else {
             // Create a new array
-            Hero[] newComponents = new Hero[components.Length + 1];
+            Attachable[] newComponents = new Attachable[components.Length + 1];
 
             // Loop through all components
             for (int i = 0; i < components.Length; i++) {
@@ -82,24 +85,55 @@ public class ComponentSystem {
         return component;
     }
 
-    ///<summary>Get all components.</summary>
-    ///<returns>An array of all components.</returns>
-    public Hero[]? GetAllComponents() {
-        // Return the components
-        return components;
+    ///<summary>Delete a component.</summary>
+    ///<param name="component">The component to delete.</param>
+    public void DeleteAttachable(Attachable component) {
+        // Check if the components are null
+        if (components == null) return;
+
+        // Run the delete method
+        component.Destroy();
+
+        // Create a copy of the components
+        Attachable[] copy = new Attachable[components.Length];
+
+        // Create a list of components
+        List<Attachable> list = new List<Attachable>();
+
+        // Loop through the components
+        bool deleted = false;
+        foreach (var c in components) {
+            // Check if the component is null
+            if (c == null) continue;
+
+            // Check if the component is the component
+            if (!deleted && c == component) {
+                // Set deleted to true
+                deleted = true;
+
+                // Continue
+                continue;
+            }
+
+            // Add the component to the list
+            list.Add(c);
+        }
+        
+        // Set components to the copy
+        components = list.ToArray();
     }
 
     ///<summary>Delete a component of type T.</summary>
     ///<param name="type">The type of component to delete.</param>
-    public void DeleteComponent<T>() where T : Hero {
+    public void DeleteAttachable<T>() where T : Attachable {
         // Check if the components are null
         if (components == null) return;
 
         // Create a copy of the components
-        Hero[] copy = new Hero[components.Length];
+        Attachable[] copy = new Attachable[components.Length];
 
         // Create a list of components
-        List<Hero> list = new List<Hero>();
+        List<Attachable> list = new List<Attachable>();
 
         // Loop through the components
         bool deleted = false;
@@ -111,6 +145,9 @@ public class ComponentSystem {
             if (!deleted && component is T) {
                 // Set deleted to true
                 deleted = true;
+
+                // Run the delete method
+                component.Destroy();
 
                 // Continue
                 continue;
@@ -125,7 +162,19 @@ public class ComponentSystem {
     }
 
     ///<summary>Delete all components.</summary>
-    public void DeleteComponents() {
+    public void DeleteAllAttachable() {
+        // Check if the components are null
+        if (components == null) return;
+
+        // Loop through the components
+        foreach (var component in components) {
+            // Check if the component is null
+            if (component == null) continue;
+
+            // Run the delete method
+            component.Destroy();
+        }
+
         // Set components to null
         components = null;
     }
