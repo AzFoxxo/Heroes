@@ -33,8 +33,6 @@ public class GameLoop
             {
                 hero.OnEarlyUpdate();
 
-                hero.OnUpdate(); // Update the hero
-
                 if (!running) break; // Quit
 
                 // Rebuild the list of heroes
