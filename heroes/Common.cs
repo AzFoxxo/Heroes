@@ -6,12 +6,12 @@ public class Common
 {
     ///<summary>Print a message to the console.</summary>
     ///<param name="message">The message to print.</param>
-    protected static void Print(object text) => Console.WriteLine(text);
+    protected static void PrintLine(object text) => Console.WriteLine(text);
 
     ///<summary>Print a message to the console in a colour.</summary>
     ///<param name="message">The message to print.</param>
     ///<param name="colour">The colour to print the message in.</param>
-    protected static void Print(string text, Colours colour)
+    protected static void PrintLine(string text, Colours colour)
     {
         Console.ForegroundColor = Colour.Convert(colour);
         Console.WriteLine(text);
@@ -20,12 +20,12 @@ public class Common
 
     ///<summary>Print a message to the console on line.</summary>
     ///<param name="message">The message to print.</param>
-    protected static void PrintPrompt(string text) => Console.Write(text);
+    protected static void Print(string text) => Console.Write(text);
 
     ///<summary>Print a message to the console on line in a colour.</summary>
     ///<param name="message">The message to print.</param>
     ///<param name="colour">The colour to print the message in.</param>
-    protected static void PrintPrompt(string text, Colours colour)
+    protected static void Print(string text, Colours colour)
     {
         Console.ForegroundColor = Colour.Convert(colour);
         Console.Write(text);
@@ -38,7 +38,7 @@ public class Common
     protected static string Read(string prompt)
     {
         // Print the prompt
-        PrintPrompt(prompt);
+        Print(prompt);
 
         // Return the input (check if the input is null or empty)
         return Console.ReadLine() ?? "";
@@ -51,7 +51,7 @@ public class Common
     protected static string Read(string prompt, Colours colour)
     {
         // Print the prompt
-        PrintPrompt(prompt, colour);
+        Print(prompt, colour);
 
         // Return the input (check if the input is null or empty)
         return Console.ReadLine() ?? "";
@@ -70,7 +70,7 @@ public class Common
         foreach (char c in message)
         {
             // Print the character in the next color
-            PrintPrompt(c.ToString(), gayColours[colorIndex]);
+            Print(c.ToString(), gayColours[colorIndex]);
 
             // Increase the index (looping back to zero at the end)
             colorIndex++;
@@ -78,6 +78,6 @@ public class Common
         }
 
         // Print a new line
-        if (newline) Print("");
+        if (newline) PrintLine("");
     }
 }
