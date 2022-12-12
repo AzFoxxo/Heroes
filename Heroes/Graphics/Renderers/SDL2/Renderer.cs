@@ -31,10 +31,15 @@ public class Renderer
 
     static public Renderer Instance;
 
+    private bool cleanedUp = false;
 
     public Renderer()
     {
         Instance = this;
+    }
+
+    ~Renderer() {
+        if (!cleanedUp) CleanUp();
     }
 
     /// <summary> Add a sprite to the renderer. </summary>
@@ -109,6 +114,9 @@ public class Renderer
         // Add to the list of textures
         textures.Add(path, texture);
 
+        // Log the loaded texture
+        PawsLogger.Info($"Loaded the file {path} in memory and created a texture.");
+
         // Return the reference to the texture in memory
         return texture;
     }
@@ -165,8 +173,8 @@ public class Renderer
         // Initialise SDL with everything
         if (SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING) < 0)
         {
-            PawsLogger.Error($"There was an issue initializing SDL. {SDL.SDL_GetError()}");
-        }
+            PawsLogger.Error($"There was an issue initialising SDL. {SDL.SDL_GetError()}");
+        } else PawsLogger.Info("SDL has been initialised without issues.");
 
         // Create a default window
         window = SDL.SDL_CreateWindow(
@@ -182,7 +190,7 @@ public class Renderer
         if (window == IntPtr.Zero)
         {
             Console.WriteLine($"There was an issue creating the window. {SDL.SDL_GetError()}");
-        }
+        } else PawsLogger.Info("Window has been created without issues.");
 
         // Creates a new SDL hardware renderer using the default graphics device with VSync enabled
         renderer = SDL.SDL_CreateRenderer(
@@ -194,7 +202,7 @@ public class Renderer
         if (renderer == IntPtr.Zero)
         {
             PawsLogger.Error($"There was an issue creating the renderer. {SDL.SDL_GetError()}");
-        }
+        } else PawsLogger.Info("Created renderer without any issues.");
 
         SDL.SDL_SetRenderDrawBlendMode(renderer, SDL.SDL_BlendMode.SDL_BLENDMODE_BLEND);
     }
@@ -268,11 +276,15 @@ public class Renderer
         // Unload all the textures
         foreach (var texture in textures)
         {
+            PawsLogger.Info($"Destroyed texture {texture}.");
             SDL.SDL_DestroyTexture(texture.Value);
         }
 
         SDL.SDL_DestroyRenderer(renderer);
+        PawsLogger.Info("Destroyed renderer.");
         SDL.SDL_DestroyWindow(window);
+        PawsLogger.Info("Destroyed Window.");
         SDL.SDL_Quit();
+        PawsLogger.Info("Quit SDL.");
     }
 }
