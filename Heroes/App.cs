@@ -5,7 +5,7 @@ using Heroes.Internal;
 public static class Application
 {
     ///<summary>Quit the application.</summary>
-    public static void Quit() => GameLoop.running = false;
+    public static void Quit() => Program.gameLoop.End();
 
     ///<summary>Restart the application.</summary>
     public static void Restart() => Program.gameLoop.Restart();

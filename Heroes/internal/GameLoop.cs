@@ -3,11 +3,18 @@ namespace Heroes.Internal;
 
 public class GameLoop
 {
-    public static bool running = true;
+    // Is running
+    public static bool Running { get; private set; } = true;
+
+    public static bool FreezeExecuting { get; set; } = true;
 
     // Game loop methods
     public void Enter()
     {
+        // Wait until freeze executing is false
+        while (FreezeExecuting) { }
+
+
         // Loader code
         HeroManager.WorldLoadHero<EngineHeroInitialisation>();
 
@@ -15,7 +22,7 @@ public class GameLoop
         List<Hero> heroes = new(HeroManager.heroes);
 
         // Update the game loop
-        while (running)
+        while (Running)
         {
             // Calculate the delta time
             Time.CalculateDeltaTime();
@@ -33,7 +40,7 @@ public class GameLoop
             {
                 hero.OnEarlyUpdate();
 
-                if (!running) break; // Quit
+                if (!Running) break; // Quit
 
                 // Rebuild the list of heroes
                 if (HeroManager.RebuildList)
@@ -61,7 +68,7 @@ public class GameLoop
                     }
                 }
 
-                if (!running) break; // Quit
+                if (!Running) break; // Quit
 
                 // Rebuild the list of heroes
                 if (HeroManager.RebuildList)
@@ -79,7 +86,7 @@ public class GameLoop
             {
                 hero.OnLateUpdate();
 
-                if (!running) break; // Quit
+                if (!Running) break; // Quit
 
                 // Rebuild the list of heroes
                 if (HeroManager.RebuildList)
@@ -103,7 +110,7 @@ public class GameLoop
     public void Restart()
     {
         // Reset the game loop
-        running = true;
+        Running = true;
 
         // Destroy all heroes
         HeroManager.WorldDestroyAllHeroes();
@@ -111,4 +118,7 @@ public class GameLoop
         // Restart the game loop
         Enter();
     }
+
+    ///<summary>End the game loop</summary>
+    internal void End() => Running = false;
 }

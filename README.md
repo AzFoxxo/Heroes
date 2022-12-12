@@ -11,6 +11,10 @@ Please note that this project is actively in development and is not yet ready fo
 
 If you wish to help, please feel free to submit a pull request or open an issue. The code is not yet documented, but I will be working on that once the API is stable.
 
+## Other projects used in this project:
+- Heroes/Debug/[Paws](https://github.com/AzFoxxo/Paws) - Simple logging library by AzFoxxo
+- Heroes/Graphics/SDL2/[SDL2-CS](https://github.com/flibitijibibo/SDL2-CS) - SDL2 bindings for C# by flibitijibibo
+
 ## Planned Features
 - [x] Event Management
 - [x] Entity Component System
