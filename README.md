@@ -13,13 +13,13 @@ If you wish to help, please feel free to submit a pull request or open an issue.
 
 ## Other projects used in this project:
 - Heroes/Debug/[Paws](https://github.com/AzFoxxo/Paws) - Simple logging library by AzFoxxo
-- Heroes/Graphics/SDL2/[SDL2-CS](https://github.com/flibitijibibo/SDL2-CS) - SDL2 bindings for C# by flibitijibibo
+- Heroes/Graphics/[SDL2-CS](https://github.com/flibitijibibo/SDL2-CS) - SDL2 bindings for C# by flibitijibibo
 
 ## Planned Features
 - [x] Event Management
 - [x] Entity Component System
 - [ ] Scene Management
-- [ ] Graphics (2D)
+- [WIP] Graphics (2D)
 - [ ] Audio
 - [ ] Input
 - [ ] Networking
