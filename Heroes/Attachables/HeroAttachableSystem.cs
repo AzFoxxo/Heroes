@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Heroes.Attachables;
 
 public class HeroAttachableSystem : Common {
